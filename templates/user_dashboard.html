@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+    <div class="container">
+    <h2>Welcome, {{ session['username'] }}!</h2>
+
+    <ul>
+        <li><a href="{{ url_for('routes.available_books') }}">View Available Books</a></li>
+        <li><a href="{{ url_for('routes.view_borrowed_books') }}">Borrowed Books</a></li>
+        <li><a href="{{ url_for('routes.profile') }}">Profile</a></li>
+        <li><a href="{{ url_for('routes.logout') }}">Logout</a></li>
+    </ul>
+    </div>
+</body>
+</html>

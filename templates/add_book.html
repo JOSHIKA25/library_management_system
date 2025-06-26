@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Book</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Add a New Book</h2>
+        <form method="POST" action="{{ url_for('routes.add_book') }}">
+            <input type="text" name="title" placeholder="Book Title" required><br><br>
+            <input type="text" name="author" placeholder="Author" required><br><br>
+            <button type="submit">Add Book</button>
+        </form>
+        <br>
+        <a href="{{ url_for('routes.admin_dashboard') }}">Back to Dashboard</a>
+    </div>
+</body>
+</html>

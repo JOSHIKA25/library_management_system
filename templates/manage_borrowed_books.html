@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Borrowed Books</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 14px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #f8f8f8;
+        }
+        .action-button {
+            padding: 6px 12px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Manage Borrowed Books</h2>
+        {% if borrowed %}
+        <table>
+            <tr>
+                <th>Book Title</th>
+                <th>Username</th>
+                <th>Borrowed Date</th>
+                <th>Return Date</th>
+                <th>Action</th>
+            </tr>
+            {% for b in borrowed %}
+            <tr>
+                <td>{{ b.book_title }}</td>
+                <td>{{ b.username }}</td>
+                <td>{{ b.borrowed_date }}</td>
+                <td>{{ b.return_date }}</td>
+                <td>
+                    <a class="action-button" href="{{ url_for('routes.return_book', borrow_id=b._id) }}">Mark as Returned</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>No borrowed books.</p>
+        {% endif %}
+        <br>
+        <a href="{{ url_for('routes.admin_dashboard') }}">Back to Dashboard</a>
+    </div>
+</body>
+</html>

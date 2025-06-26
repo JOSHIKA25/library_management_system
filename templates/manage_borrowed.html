@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <title>Manage Borrowed Books</title>
+    <style>
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+        th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+        .action-button {
+            padding: 8px 16px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        .action-button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status-returned {
+            color: #28a745;
+            font-weight: 600;
+            padding: 6px 12px;
+            background-color: #e8f5e9;
+            border-radius: 4px;
+            display: inline-block;
+            min-width: 120px;
+        }
+        .status-borrowed {
+            color: #e53e3e;
+            font-weight: 600;
+            padding: 6px 12px;
+            background-color: #fff5f5;
+            border-radius: 4px;
+            display: inline-block;
+            min-width: 120px;
+        }
+        h2 {
+            text-align: center;
+            color: #2d3748;
+            margin: 30px 0;
+            font-size: 2em;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4a5568;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        .button:hover {
+            background-color: #2d3748;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h2>Borrowed Books Management</h2>
+    <table>
+        <tr>
+            <th>Book Title</th>
+            <th>Username</th>
+            <th>Borrowed Date</th>
+            <th>Return Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        {% for b in borrowed %}
+        <tr>
+            <td>{{ b.book_title }}</td>
+            <td>{{ b.username }}</td>
+            <td>{{ b.borrowed_date }}</td>
+            <td>{{ b.return_date }}</td>
+            <td>
+                {% if b.returned %}
+                    <span class="status-returned">Returned</span>
+                {% else %}
+                    <span class="status-borrowed">Currently Borrowed</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if not b.returned %}
+                    <a href="{{ url_for('routes.return_book', borrow_id=b._id) }}" class="action-button">Mark as Returned</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="{{ url_for('routes.admin_dashboard') }}" class="button">Back to Dashboard</a>
+    </div>
+    </div>
+</body>
+</html>
+

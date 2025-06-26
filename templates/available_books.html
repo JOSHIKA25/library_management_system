@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Books</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Available Books</h2>
+        
+        {% if books %}
+            <table>
+                <tr>
+                    <th>Book Title</th>
+                    <th>Author</th>
+                    <th>Status</th>
+                    {% if not is_admin %}
+                        <th>Action</th>
+                    {% endif %}
+                </tr>
+                {% for book in books %}
+                    <tr>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.author }}</td>
+                        <td><span class="status-available">Available</span></td>
+                        {% if not is_admin %}
+                            <td>
+                                <a href="{{ url_for('routes.borrow', book_id=book._id) }}" class="action-button">Borrow</a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <div style="text-align: center; padding: 40px;">
+                <p style="font-size: 1.2em; color: #4a5568;">No books are currently available.</p>
+            </div>
+        {% endif %}
+
+        <div style="text-align: center; margin-top: 30px;">
+            {% if is_admin %}
+                <a href="{{ url_for('routes.admin_dashboard') }}" class="button">Back to Dashboard</a>
+            {% else %}
+                <a href="{{ url_for('routes.user_dashboard') }}" class="button">Back to Dashboard</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

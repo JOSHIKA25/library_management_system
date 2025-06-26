@@ -1,0 +1,10 @@
+<div class="container">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<h2>Books</h2>
+<ul>
+  {% for book in books %}
+    <li>{{ book.title }} by {{ book.author }} - {% if book.available %}Available{% else %}Borrowed{% endif %}</li>
+  {% endfor %}
+</ul>
+<a href="{{ url_for('main.dashboard') }}">Back</a>
+</div>
